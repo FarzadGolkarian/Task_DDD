@@ -1,0 +1,6 @@
+@Task_DDD.WebApi_HostAddress = http://localhost:5207
+
+GET {{Task_DDD.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
