@@ -9,7 +9,11 @@ namespace Task_DDD.Application.ProfileMapping
         public MappingProfile()
         {
 
-            CreateMap<Ticket, GetAllTicketDto>().ReverseMap();
+            CreateMap<Ticket, GetAllTicketDto>()
+                .ForMember(s => s.AssignedToUser, f => f.MapFrom(d => d.User.FullName))
+                .ForMember(s => s.CreatedByUser, f => f.MapFrom(d => d.Employee.FullName))
+                .ReverseMap();
+
         }
     }
 }

@@ -4,7 +4,7 @@ namespace Task_DDD.Application.Dto.Tickets
 {
     public record UpdateTicketDto(string Title,
                                           string Description,
-                                          Guid AssignedToUserId,
+                                          Guid? AssignedToUserId,
                                           TicketPriorityTypeEnum TicketPriorityTypeEnum);
     
 }

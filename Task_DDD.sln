@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36310.24 d17.14
+VisualStudioVersion = 17.14.36310.24
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task_DDD.EF", "Task_DDD.EF\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task_DDD.Repository", "Task_DDD.Repository\Task_DDD.Repository.csproj", "{508BAB3C-709B-44B3-A14E-DA0F8CE48AD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task_DDD.AdminPanelWebApi", "Task_DDD.AdminPanelWebApi\Task_DDD.AdminPanelWebApi.csproj", "{87DD5B8F-23CA-4C59-A71E-AE2493BF0C1E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task_DDD.AdminWebApi", "Task_DDD.AdminPanelWebApi\Task_DDD.AdminWebApi.csproj", "{87DD5B8F-23CA-4C59-A71E-AE2493BF0C1E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task_DDD.WebApi", "Task_DDD.WebApi\Task_DDD.WebApi.csproj", "{05BC6FFA-3778-4C96-A315-2C0C1FEF407B}"
 EndProject

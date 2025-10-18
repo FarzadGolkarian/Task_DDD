@@ -21,7 +21,7 @@ namespace Task_DDD.EF.ModelConfiguration.Users
                 .WithOne(x => x.User)
                 .HasForeignKey(x => x.AssignedToUserId)
                 .OnDelete(DeleteBehavior.Cascade)
-                .IsRequired();
+                ;
 
         }
     }

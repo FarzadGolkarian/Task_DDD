@@ -7,10 +7,10 @@ namespace Task_DDD.Application.ServiceContracts.Tickets
     {
         Task<Guid> CreateTicketAsync(CreateTicketDto dto);
         Task<List<GetAllTicketDto>> CurrentUserTicketListAsync();
-        Task<List<GetAllTicketDto>> AllTicketListAsync();
+        Task<List<GetAllTicketDto>> GetAllTicketListAsync();
         Task UpdateTicketAsync(Guid ticketId , UpdateTicketDto dto);
-        Task ChangeTicketAsync(Guid ticketId, TicketStatusTypeEnum dto);
-        Task DeleteLibraryAsync(Guid ticketId);
+        Task ChangeTicketStatusAsync(Guid ticketId, TicketStatusTypeEnum status);
+        Task DeleteTicketAsync(Guid ticketId);
         Task<GetAllTicketDto> GetDetailTicketAsync(Guid ticketId);
     }
 }

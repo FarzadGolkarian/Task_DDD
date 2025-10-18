@@ -8,6 +8,7 @@ namespace Task_DDD.Application.Dto.Tickets
 {
     public record GetAllTicketDto
     {
+        public Guid guid { get; set; }
         public string Title { get; init; }
 
         public string Description { get; init; }

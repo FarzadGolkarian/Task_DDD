@@ -29,7 +29,7 @@ namespace Task_DDD.Domain.Entity.Tickets
         /// Relation To User
         /// </summary>
         public virtual User User { get; set; }
-        public Guid AssignedToUserId { get; set; }
+        public Guid? AssignedToUserId { get; set; }
 
         /// <summary>
         /// Relation To Employee
@@ -42,18 +42,20 @@ namespace Task_DDD.Domain.Entity.Tickets
 
         public static Ticket CreateTicket(string title,
                                           string description,
-                                          Guid assignedToUserId,
+                                          Guid CreatedByUserId,
+                                          Guid? assignedToUserId,
                                           TicketPriorityTypeEnum ticketPriorityTypeEnum)
         {
             TitleValidation(title);
             DescriptionValidation(description);
-            GuidValidation(assignedToUserId);
+            GuidValidation(CreatedByUserId);
             EnumUtility.ValidationEnumDefined(typeof(TicketPriorityTypeEnum), ticketPriorityTypeEnum, "Status of Tickets Priority");
 
             return new Ticket()
             {
                 Title = title.SafeTrim(),
                 Description = description.SafeTrim(),
+                 CreatedByUserId = CreatedByUserId,
                 AssignedToUserId = assignedToUserId,
                 TicketPriorityTypeEnum = ticketPriorityTypeEnum,
                 TicketStatusTypeEnum = TicketStatusTypeEnum.Open
@@ -63,14 +65,14 @@ namespace Task_DDD.Domain.Entity.Tickets
 
         public void UpdateTicket(string title,
                                           string description,
-                                          Guid assignedToUserId,
+                                          Guid? assignedToUserId,
                                           TicketPriorityTypeEnum ticketPriorityTypeEnum)
         {
             TitleValidation(title);
             Title = title.SafeTrim();
             DescriptionValidation(description);
             Description = description.SafeTrim();
-            GuidValidation(assignedToUserId);
+            //GuidValidation(assignedToUserId);
             AssignedToUserId = assignedToUserId;
             EnumUtility.ValidationEnumDefined(typeof(TicketPriorityTypeEnum), ticketPriorityTypeEnum, "Status of Tickets Priority");
             TicketPriorityTypeEnum = ticketPriorityTypeEnum;

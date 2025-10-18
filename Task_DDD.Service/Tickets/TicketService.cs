@@ -20,23 +20,37 @@ namespace Task_DDD.Service.Tickets
         private readonly IUserAuthorizedService _userAuthorizedService;
         public TicketService(IUserAuthorizedService userAuthorizedService,
              ITicketRepository ticketRepository,
-             IMapper mapper,
-        ILogger logger) : base(userAuthorizedService, logger)
+             IMapper mapper) : base(userAuthorizedService)
         {
-            _ticketRepository = ticketRepository; 
+            _ticketRepository = ticketRepository;
             _mapper = mapper;
             _userAuthorizedService = userAuthorizedService;
         }
 
-        public async Task<List<GetAllTicketDto>> AllTicketListAsync()
-        {           
-            return _mapper.Map<List<GetAllTicketDto>>(await _ticketRepository.GetAllAsync());         
+        public async Task<List<GetAllTicketDto>> GetAllTicketListAsync()
+        {
+
+            return await _ticketRepository.GetQueryable(disableMaxRowLimit: true)
+                .Include(t => t.User)
+                .Include(y => y.Employee)
+                .Select(s => new GetAllTicketDto
+                {
+                    guid = s.Id,
+                    AssignedToUser = s.User.FullName,
+                    TicketPriorityType = s.TicketPriorityTypeEnum,
+                    TicketStatusType = s.TicketStatusTypeEnum,
+                    CreatedAt = s.CreatedAt,
+                    CreatedByUser = s.Employee.FullName,
+                    Description = s.Description,
+                    Title = s.Title
+
+                }).ToListAsync();
 
         }
 
-        public async Task ChangeTicketAsync(Guid ticketId, TicketStatusTypeEnum dto)
+        public async Task ChangeTicketStatusAsync(Guid ticketId, TicketStatusTypeEnum dto)
         {
-            var ticket= await _ticketRepository.GetAsync(ticketId);
+            var ticket = await _ticketRepository.GetAsync(ticketId);
 
             ticket.UpdateTicketStatus(dto);
 
@@ -47,14 +61,13 @@ namespace Task_DDD.Service.Tickets
         {
             if (string.IsNullOrEmpty(dto.Title))
                 throw new BusinessException(string.Format(ErrorMessages.TitleIsRequired, dto.Title));
+            var userid = _userAuthorizedService.UserId;
 
-            if (dto.AssignedToUserId == Guid.Empty)
-                throw new BusinessException(ErrorMessages.AssignedToUserId);
 
             EnumUtility.ValidationEnumDefined(typeof(TicketPriorityTypeEnum), dto.TicketPriorityType, "  Status of Tickets Priority ");
 
             Ticket ticket;
-            ticket = Ticket.CreateTicket(dto.Title, dto.Description, dto.AssignedToUserId, dto.TicketPriorityType);
+            ticket = Ticket.CreateTicket(dto.Title, dto.Description, userid, dto.AssignedToUserId, dto.TicketPriorityType);
 
             await _ticketRepository.Add(ticket);
 
@@ -63,12 +76,27 @@ namespace Task_DDD.Service.Tickets
 
         public async Task<List<GetAllTicketDto>> CurrentUserTicketListAsync()
         {
-            var curentUserId = _userAuthorizedService.UserId;
+            var currentUserId = _userAuthorizedService.UserId;
 
-            return _mapper.Map<List<GetAllTicketDto>>(await _ticketRepository.GetQueryable(disableMaxRowLimit: true)
-                    .Where(w => w.CreatedByUserId == curentUserId).ToListAsync());
+            return await _ticketRepository.GetQueryable(disableMaxRowLimit: true)
+                .Include(t => t.User)
+                .Include(y => y.Employee)
+                .Where(w => w.CreatedByUserId == currentUserId)
+                .Select(s => new GetAllTicketDto
+                {
+                    guid = s.Id,
+                    AssignedToUser = s.User.FullName,
+                    TicketPriorityType = s.TicketPriorityTypeEnum,
+                    TicketStatusType = s.TicketStatusTypeEnum,
+                    CreatedAt = s.CreatedAt,
+                    CreatedByUser = s.Employee.FullName,
+                    Description = s.Description,
+                    Title = s.Title
+
+                }).ToListAsync();
         }
-        public async Task DeleteLibraryAsync(Guid ticketId)
+
+        public async Task DeleteTicketAsync(Guid ticketId)
         {
             if (ticketId == Guid.Empty) throw new BusinessException(ErrorMessages.GuidNotValid);
 
@@ -76,22 +104,41 @@ namespace Task_DDD.Service.Tickets
 
             if (ticket == null) throw new BusinessException(ErrorMessages.TicketNotFound);
 
-           await _ticketRepository.Delete(ticket);
+            await _ticketRepository.Delete(ticket);
 
         }
 
         public async Task<GetAllTicketDto> GetDetailTicketAsync(Guid ticketId)
         {
-            return _mapper.Map<GetAllTicketDto>(await _ticketRepository.GetAsync(ticketId));
+
+            var ticket= await _ticketRepository.GetQueryable(disableMaxRowLimit: true)
+                .Include(t => t.User)
+                .Include(y => y.Employee)
+                .Where(w => w.Id == ticketId)
+                .Select(s => new GetAllTicketDto
+                {
+                    guid = s.Id,
+                    AssignedToUser = s.User.FullName,
+                    TicketPriorityType = s.TicketPriorityTypeEnum,
+                    TicketStatusType = s.TicketStatusTypeEnum,
+                    CreatedAt = s.CreatedAt,
+                    CreatedByUser = s.Employee.FullName,
+                    Description = s.Description,
+                    Title = s.Title
+
+                }).FirstOrDefaultAsync();
+            if (ticket == null) throw new BusinessException(ErrorMessages.TicketNotFound);
+            return ticket;
+
         }
 
         public async Task UpdateTicketAsync(Guid ticketId, UpdateTicketDto dto)
         {
             var ticket = await _ticketRepository.GetAsync(ticketId);
 
-            ticket.UpdateTicket(dto.Title , dto.Description , dto.AssignedToUserId,dto.TicketPriorityTypeEnum);
+            ticket.UpdateTicket(dto.Title, dto.Description, dto.AssignedToUserId, dto.TicketPriorityTypeEnum);
 
-           await _ticketRepository.Update(ticket);
+            await _ticketRepository.Update(ticket);
         }
     }
 }

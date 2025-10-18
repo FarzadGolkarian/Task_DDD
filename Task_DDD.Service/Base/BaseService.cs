@@ -4,12 +4,11 @@ using Serilog;
 
 namespace Task_DDD.Service.Base
 {
-    public class BaseService(IUserAuthorizedService userAuthorizedService,
-                             Serilog.ILogger logger)
+    public class BaseService(IUserAuthorizedService userAuthorizedService)
     {
         protected readonly IUserAuthorizedService UserAuthorizedService = userAuthorizedService;
 
-        protected readonly ILogger Logger = logger;
+
 
     }
 }

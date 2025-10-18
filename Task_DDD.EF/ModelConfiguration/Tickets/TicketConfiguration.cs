@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Task_DDD.Domain.Entity.Employees;
 using Task_DDD.Domain.Entity.Tickets;
 
 namespace Task_DDD.EF.ModelConfiguration.Tickets
