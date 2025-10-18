@@ -10,6 +10,7 @@ namespace Task_DDD.Service.Users
     public class AuthorizeUserService(IHttpContextAccessor accessor) : IUserAuthorizedService
     {
         public ClaimsPrincipal User => accessor.HttpContext.User as ClaimsPrincipal;
+       
         public bool IsAuthenticated => User != null ? User.Identity.IsAuthenticated : false;
 
         public Guid UserId
@@ -38,8 +39,6 @@ namespace Task_DDD.Service.Users
             }
         }
 
-
-
         public void VerifyUserType(params AdminUserTypeEnum[] validUserTypes)
         {
             if (UserType == null)
@@ -50,7 +49,6 @@ namespace Task_DDD.Service.Users
                 throw new BusinessException(string.Format(ErrorMessages.AccessIsNotpermitted));
             }
         }
-
 
         public Guid GetEmployeeId()
         {

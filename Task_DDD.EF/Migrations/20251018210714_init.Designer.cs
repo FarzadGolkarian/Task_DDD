@@ -12,7 +12,7 @@ using Task_DDD.EF.DatabaseContext;
 namespace Task_DDD.EF.Migrations
 {
     [DbContext(typeof(TaskDbContext))]
-    [Migration("20251018205614_init")]
+    [Migration("20251018210714_init")]
     partial class init
     {
         /// <inheritdoc />

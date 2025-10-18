@@ -96,46 +96,45 @@ namespace Task_DDD.EF.Migrations
                 table: "Ticket",
                 column: "CreatedByUserId");
             migrationBuilder.InsertData(table: "User", columns: new[] {
-                                           "Id",
-                                           "FullName",
-                                           "Email",
-                                           "Password",
-                                           "AdminUserType",
-                                           "CreatedAt",
-                                           "CreatedBy",
-                                           "IsActive",
-                                           "IsDeleted"
-                                       }, values: new object[] {
-                                           "bf5c9b0b-fa95-46ca-932a-78304220fae9",
-                                           "admin",
-                                           "admin@admin.com",
-                                           "58QQ84GtUlB/QZch4y8NvqDb3UdPlZgp7NuKBPun0mc=",
-                                           "10",
-                                           DateTime.UtcNow,
-                                           "admin",
-                                           true,
-                                           false
-                                       });
+                               "Id",
+                               "FullName",
+                               "Email",
+                               "Password",
+                               "AdminUserType",
+                               "CreatedAt",
+                               "CreatedBy",
+                               "IsActive",
+                               "IsDeleted"
+                           }, values: new object[] {
+                               "bf5c9b0b-fa95-46ca-932a-78304220fae9",
+                               "admin",
+                               "admin@admin.com",
+                               "BitIb6BeyyNKGCtjRxAc93nRpfkPFiVVgx62WO2dyrE=",
+                               "10",
+                               DateTime.UtcNow,
+                               "admin",
+                               true,
+                               false
+                           });
             migrationBuilder.InsertData(table: "Employee", columns: new[] {
-                                           "Id",
-                                           "FullName",
-                                           "Email",
-                                           "Password",
-                                           "ClientUserTypeEnum",
-                                           "CreatedAt",
-                                           "CreatedBy",
-                                           "IsActive"
-                                       }, values: new object[] {
-                                           "2d3fb4cb-d243-419e-b487-834de5e423ab",
-                                           "user",
-                                           "user@user.com",
-                                           "vjJ+DNmN1GnodCbHpEn7Zeayqi2mc0ONvqVXRJx/NWY=",
-                                          // "user",
-                                           "20",
-                                           DateTime.UtcNow,
-                                           "admin",
-                                           true
-                                       });
+                               "Id",
+                               "FullName",
+                               "Email",
+                               "Password",
+                               "ClientUserTypeEnum",
+                               "CreatedAt",
+                               "CreatedBy",
+                               "IsActive"
+                           }, values: new object[] {
+                               "2d3fb4cb-d243-419e-b487-834de5e423ab",
+                               "user",
+                               "user@user.com",
+                               "vjJ+DNmN1GnodCbHpEn7Zeayqi2mc0ONvqVXRJx/NWY=",
+                               "20",
+                               DateTime.UtcNow,
+                               "admin",
+                               true
+                           });
         }
 
         /// <inheritdoc />

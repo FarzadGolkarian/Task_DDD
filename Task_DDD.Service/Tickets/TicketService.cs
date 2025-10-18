@@ -48,11 +48,11 @@ namespace Task_DDD.Service.Tickets
 
         }
 
-        public async Task ChangeTicketStatusAsync(Guid ticketId, TicketStatusTypeEnum dto)
+        public async Task ChangeTicketStatusAsync(Guid ticketId, ChangeTicketStatusDto dto)
         {
             var ticket = await _ticketRepository.GetAsync(ticketId);
 
-            ticket.UpdateTicketStatus(dto);
+            ticket.UpdateTicketStatus(dto.status);
 
             await _ticketRepository.Update(ticket);
         }

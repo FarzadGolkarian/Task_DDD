@@ -38,10 +38,11 @@ namespace Task_DDD.AdminWebApi.Controllers
  
 
         [HttpPut("{ticketId:guid}/ChangeStatus")]
-        public async Task<ActionResult> ChangeTicketStatus(Guid ticketId, [FromBody] TicketStatusTypeEnum status)
+        public async Task<ActionResult> ChangeTicketStatus(Guid ticketId, [FromBody] ChangeTicketStatusDto dto)
         {
-            await _ticketService.ChangeTicketStatusAsync(ticketId, status);
+            await _ticketService.ChangeTicketStatusAsync(ticketId, dto);
             return Ok();
+            
         }
 
 
